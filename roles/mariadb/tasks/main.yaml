@@ -1,0 +1,49 @@
+---
+
+
+- name: Install a list of MariaDB packages 
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - mariadb-server
+    - mariadb-client
+    - mariadb-common
+    - python3-pymysql
+  tags: mariadb
+
+- name: enable MariaDB service
+  systemd:
+    name: mariadb
+    enabled: yes
+  tags: mariadb
+
+
+- name: Make sure MariaDb service is running
+  systemd:
+    state: started
+    name: mariadb
+  tags: mariadb
+
+- name: adding firewalld rules for MariaDB
+  firewalld:
+    service: mysql
+    permanent: true
+    state: enabled
+  notify: Reloading firewalld rules
+  tags: mariadb
+
+
+
+- name: Add my.cnf
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0600
+  tags: mariadb
+
+- name: Restart MariaDb
+  systemd: 
+    state: restarted
+    name: mariadb
+  tags: mariadb
+
+
+

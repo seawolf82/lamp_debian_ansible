@@ -1,0 +1,91 @@
+---
+
+- name: ensure a list of basic packages installed
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - apt-transport-https 
+    - lsb-release 
+    - ca-certificates
+  tags: php    
+
+    
+    #- name: Import key repository php 5.6 
+    #shell: curl  https://packages.sury.org/php/apt.gpg | apt-key add -
+    #tags: php56    
+
+    #- name: Adding repository 5.6
+    #shell: echo 'deb https://packages.sury.org/php/ stretch main' > /etc/apt/sources.list.d/deb.sury.org.list
+    #tags: php56    
+
+    #- name: Run the equivalent of "apt-get update" as a separate step
+    #apt:
+    #update_cache: yes
+    #tags: php56    
+
+
+- name: Install php package
+  apt:
+    name: php
+    state: present
+  tags: php    
+
+
+- name: ensure a list of basic php packages installed
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - php-cli
+    - php-common
+    - php-curl
+    - php-mbstring
+    - php-mysql
+    - php-xml
+    - php-apcu 
+    - php-cgi 
+    - php-curl 
+    - php-enchant 
+    - php-fpm 
+    - php-gd 
+    - php-geoip 
+    - php-gmp 
+    - php-imagick 
+    - php-imap 
+    - php-interbase 
+    - php-intl 
+    - php-json 
+    - php-ldap 
+    - php-memcache 
+    - php-memcached 
+    - php-mysql 
+    - php-odbc 
+    - php-pgsql 
+    - php-pspell 
+    - php-radius 
+    - php-rrd 
+    - php-snmp 
+    - php-xsl
+  tags: php    
+
+
+    #- name: correct php5.6 version selected
+    #shell: update-alternatives --set php /usr/bin/php5.6
+    #tags: php56    
+
+    #- name: correct phar5.6 version selected
+    #shell: update-alternatives --set phar /usr/bin/phar5.6
+    #tags: php56    
+
+    #- name: correct phar.phar5.6 version selected
+    #shell: update-alternatives --set phar.phar /usr/bin/phar.phar5.6
+    #tags: php56    
+
+    #- name: correct php-cgi5.6 version selected
+    #shell: update-alternatives --set php-cgi /usr/bin/php-cgi5.6
+    #tags: php56    
+
+
+
+
